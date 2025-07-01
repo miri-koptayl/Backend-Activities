@@ -17,10 +17,11 @@ namespace Backend.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
+            builder.Services.AddScoped<IActivitiesService, ActivitiesService>();
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-
             builder.Services.AddScoped<IUserService, UserService>();
-
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

@@ -39,7 +39,7 @@ namespace Backend.SERVER
             return _userRepository.Add(user);
         }
 
-        public Users? UpdateUser(int id, string username, string email, string password, int age)
+        public Users? UpdateUser(int id, string username, string email, string password, int age, string role)
         {
             var existingUser = _userRepository.GetById(id);
             if (existingUser == null) return null;
@@ -48,6 +48,7 @@ namespace Backend.SERVER
             existingUser.Email = email;
             existingUser.Password = password;
             existingUser.Age = age;
+            existingUser.Role = role; 
 
             return _userRepository.Update(existingUser);
         }

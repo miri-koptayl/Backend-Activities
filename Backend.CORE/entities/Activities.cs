@@ -14,7 +14,7 @@ namespace Backend.CORE.entities
         public string? ContentUrl { get; set; }
         public int PointsValue { get; set; }
         public int AgeGroupId { get; set; }
-        public bool IsApproved { get; set; }
+        public bool IsApproved { get; set; } = false;
         public int? ApprovedBy { get; set; }
     }
 }

@@ -15,3 +15,4 @@ C:\מירי\פרויקטים\פרויקט פרקטיקום\Backend.DATA\obj\Debu
 C:\מירי\פרויקטים\פרויקט פרקטיקום\Backend.DATA\obj\Debug\net8.0\Backend.DATA.pdb
 C:\מירי\פרויקטים\פרויקט פרקטיקום\Backend.DATA\obj\Debug\net8.0\Backend.DATA.genruntimeconfig.cache
 C:\מירי\פרויקטים\פרויקט פרקטיקום\Backend.DATA\obj\Debug\net8.0\ref\Backend.DATA.dll
+C:\מירי\פרויקטים\פרויקט פרקטיקום\Backend.DATA\obj\Debug\net8.0\Backend.DATA.sourcelink.json

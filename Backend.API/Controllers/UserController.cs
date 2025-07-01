@@ -36,7 +36,7 @@ namespace Backend.API.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult<UsersDTO> Post([FromBody] UsersDTO user)
+        public ActionResult<UsersDTO> Post([FromBody] UserCreateDTO user)
         {
             if (user == null)
                 return BadRequest("User data cannot be null.");
@@ -49,23 +49,34 @@ namespace Backend.API.Controllers
                     user.Password,
                     user.Age
                 );
+
                 return CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
 
+
         [HttpPut("{id}")]
-        public ActionResult<UsersDTO> Put(int id,[FromBody] UsersDTO user)
+        public ActionResult<UsersDTO> Put(int id, [FromBody] UserUpdateDTO user)
         {
             if (user == null)
                 return BadRequest("User data cannot be null.");
 
-            var updatedUser = _userService.UpdateUser(id, user.Username, user.Email, user.Password, user.Age);
+            var updatedUser = _userService.UpdateUser(
+                id,
+                user.Username,
+                user.Email,
+                user.Password,
+                user.Age,
+                user.Role
+            );
+
             if (updatedUser == null)
                 return NotFound($"User with ID {id} not found.");
+
             return Ok(updatedUser);
         }
 
@@ -77,5 +88,9 @@ namespace Backend.API.Controllers
                 return NotFound($"User with ID {id} not found.");
             return Ok(deletedUser);
         }
+    }
+
+    public class UsersDTO
+    {
     }
 }

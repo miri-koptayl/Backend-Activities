@@ -10,7 +10,8 @@ namespace Backend.CORE.Iservices
         Users? GetById(int id);
         Users? RemoveUser(int id);
 
-        Users RegisterUser(string username, string email, string password, int age);
-        Users? UpdateUser(int id, string username, string email, string password, int age); 
+        Users? RegisterUser(string username, string email, string password, int age);
+        Users? UpdateUser(int id, string username, string email, string password, int age, string role);
+
     }
 }
