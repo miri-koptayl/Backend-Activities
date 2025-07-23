@@ -18,6 +18,10 @@ namespace Backend.DATA.Repository
         {
             return _context.Users.ToList();
         }
+        public Users GetByUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
 
         public Users? GetById(int id)
         {
@@ -42,7 +46,8 @@ namespace Backend.DATA.Repository
             existingUser.Password = user.Password;
             existingUser.Age = user.Age;
             existingUser.CraetedTime = user.CraetedTime;
-
+            existingUser.ProfilePictureUrl=user.ProfilePictureUrl;
+            existingUser.TotalPoints=user.TotalPoints;
             _context.SaveChanges();
             return existingUser;
         }

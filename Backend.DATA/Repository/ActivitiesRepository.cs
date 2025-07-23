@@ -19,17 +19,17 @@ namespace Backend.DATA.Repository
             return _context.Activities.ToList();
         }
 
-        public Activities? RegisterActivities(int ageGroupId, int pointsValue, string contentUrl, string type, string description, string title)
+        public Activities? RegisterActivities(AgeGroup ageGroup, int pointsValue, string contentUrl, string type, string description, string title)
         {
             var activity = new Activities
             {
-                AgeGroupId = ageGroupId,
+                Agegroup = ageGroup,
                 PointsValue = pointsValue,
                 ContentUrl = contentUrl,
                 Type = type,
                 Description = description,
                 Title = title,
-                IsApproved = false // ברירת מחדל: טרם אושר
+                IsApproved = false
             };
 
             _context.Activities.Add(activity);
@@ -37,13 +37,13 @@ namespace Backend.DATA.Repository
             return activity;
         }
 
-        public Activities? UpdateActivities(int id, int ageGroupId, int pointsValue, string contentUrl, string type, string description, string title, bool isApproved)
+        public Activities? UpdateActivities(int id, AgeGroup ageGroup, int pointsValue, string contentUrl, string type, string description, string title, bool isApproved)
         {
             var existing = _context.Activities.FirstOrDefault(a => a.Id == id);
             if (existing == null)
                 return null;
 
-            existing.AgeGroupId = ageGroupId;
+            existing.Agegroup = ageGroup;
             existing.PointsValue = pointsValue;
             existing.ContentUrl = contentUrl;
             existing.Type = type;
@@ -65,5 +65,27 @@ namespace Backend.DATA.Repository
             _context.SaveChanges();
             return activity;
         }
+
+     
+
+        public List<Activities> GetActivitiesByUserAge(int userAge)
+        {
+            var group = GetAgeGroupForUser(userAge);
+
+            return _context.Activities
+                .Where(a => a.Agegroup == group && a.IsApproved)
+                .ToList();
+        }
+
+        private AgeGroup GetAgeGroupForUser(int age)
+        {
+            if (age <= 7 && age>2)
+                return AgeGroup.BOY;
+            else if (age <= 12 && age>7)
+                return AgeGroup.YOUNG;
+            else
+                return AgeGroup.BIG;
+        }
+
     }
 }

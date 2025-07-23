@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Backend.CORE.Iservices;
 using Backend.CORE.entities;
 
 namespace Backend.CORE.IRepositories
@@ -12,7 +8,27 @@ namespace Backend.CORE.IRepositories
     {
         List<Activities> GetActivities();
         Activities? RemoveActivities(int id);
-        Activities? RegisterActivities(int AgeGroupId, int PointsValue, string ContentUrl, string Type, string Description, string Title);
-        Activities? UpdateActivities(int id, int AgeGroupId, int PointsValue, string ContentUrl, string Type, string Description, string Title, bool IsApproved);
+
+        Activities? RegisterActivities(
+            AgeGroup ageGroup,
+            int pointsValue,
+            string contentUrl,
+            string type,
+            string description,
+            string title
+        );
+
+        Activities? UpdateActivities(
+            int id,
+            AgeGroup ageGroup,
+            int pointsValue,
+            string contentUrl,
+            string type,
+            string description,
+            string title,
+            bool isApproved
+        );
+        List<Activities> GetActivitiesByUserAge(int userAge);
+
     }
 }

@@ -8,6 +8,9 @@ namespace Backend.CORE.DTO
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public int Age { get; set; }
+        public string? ProfilePictureUrl { get; set; }
+        public int TotalPoints { get; set; }
+
     }
     public class UserUpdateDTO : UserCreateDTO
     {

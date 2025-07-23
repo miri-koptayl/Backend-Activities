@@ -1,4 +1,5 @@
 ﻿using Backend.CORE.entities;
+using Backend.CORE.Entities;
 using Microsoft.EntityFrameworkCore;    
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace Backend.DATA
 
 
         public DbSet<Users> Users { get; set; } = null!;
-        public DbSet<AgeGroups> AgeGroups { get; set; } = null!;
         public DbSet<Activities> Activities { get; set; } = null!;
         public DbSet<Achievements> Achievements { get; set; } = null!;
+        public DbSet<UserAchievement> UserAchievements { get; set; } = null!;
     }
 }

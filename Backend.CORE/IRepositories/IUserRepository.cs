@@ -7,6 +7,8 @@ namespace Backend.CORE.IRepositories
     public interface IUserRepository
     {
         IEnumerable<Users> GetAll();
+        Users GetByUsername(string username);
+
         Users? GetById(int id);
         Users Add(Users user);
         Users? Update(Users user);

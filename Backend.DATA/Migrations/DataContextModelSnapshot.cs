@@ -22,6 +22,43 @@ namespace Backend.DATA.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Backend.CORE.Entities.UserAchievement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AchievementId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ActivitiesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EarnedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AchievementId");
+
+                    b.HasIndex("ActivitiesId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAchievements");
+                });
+
             modelBuilder.Entity("Backend.CORE.entities.Achievements", b =>
                 {
                     b.Property<int>("Id")
@@ -30,7 +67,7 @@ namespace Backend.DATA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AgeGroupId")
+                    b.Property<int>("Agegroup")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -55,7 +92,7 @@ namespace Backend.DATA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AgeGroupId")
+                    b.Property<int>("Agegroup")
                         .HasColumnType("int");
 
                     b.Property<int?>("ApprovedBy")
@@ -84,31 +121,6 @@ namespace Backend.DATA.Migrations
                     b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("Backend.CORE.entities.AgeGroups", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MaxAge")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinAge")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AgeGroups");
-                });
-
             modelBuilder.Entity("Backend.CORE.entities.Users", b =>
                 {
                     b.Property<int>("Id")
@@ -118,9 +130,6 @@ namespace Backend.DATA.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AgeGoupId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CraetedTime")
@@ -135,18 +144,46 @@ namespace Backend.DATA.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalPoints")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Backend.CORE.Entities.UserAchievement", b =>
+                {
+                    b.HasOne("Backend.CORE.entities.Achievements", "Achievement")
+                        .WithMany()
+                        .HasForeignKey("AchievementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.CORE.entities.Activities", "Activities")
+                        .WithMany()
+                        .HasForeignKey("ActivitiesId");
+
+                    b.HasOne("Backend.CORE.entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Achievement");
+
+                    b.Navigation("Activities");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
